@@ -1,0 +1,112 @@
+package com.example.jlosty.modernartui;
+
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends ActionBarActivity {
+    private static final String[] PURPLE = {"#67008A","#8D39A8","#A63AC9","#B358D1","#C57CDE","#D59EE8","#DA72FC","#D24AFF","#BC22F0","#BF00FF"};
+    private static final String[] BLUE = {"#1F23E0", "#3437E3", "#4B4EDE", "#6B6DD6", "#8486D9", "#9E9FD9", "#B1B2DE", "#9596F0", "#6568F7", "#0004FC"};
+    private static final String[] GREEN = {"#006314", "#156626", "#2D6E3A", "#407A4B", "#468C54", "#56B068", "#47C460", "#37DE59", "#1FF049", "#00FF33"};
+    private static final String[] SKY = {"#00FFEE", "#00E6D6", "#00D6C8", "#00C4B7", "#00B0A4", "#00968C", "#008279", "#006B64", "#004D47", "#000000"};
+
+    private List<ColorComponent> colorComponents = new ArrayList<ColorComponent>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        colorComponents.add(new ColorComponent(PURPLE, true));
+        colorComponents.add(new ColorComponent(BLUE, false));
+        colorComponents.add(new ColorComponent(GREEN, false));
+        colorComponents.add(new ColorComponent(SKY, false));
+
+        updateColors(0);
+
+        SeekBar seekBar = (SeekBar) findViewById(R.id.changeColor);
+        seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColors(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+    private void updateColors(int sliderValue){
+        findViewById(R.id.button1Left).setBackgroundColor(colorComponents.get(0).getColor(sliderValue / 10));
+        findViewById(R.id.button2Left).setBackgroundColor(colorComponents.get(1).getColor(sliderValue / 10));
+        findViewById(R.id.button1Right).setBackgroundColor(colorComponents.get(2).getColor(sliderValue / 10));
+        findViewById(R.id.button3Right).setBackgroundColor(colorComponents.get(3).getColor(sliderValue / 10));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_more_info) {
+            showDialog();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showDialog(){
+        View dialogView = this.getLayoutInflater().inflate(R.layout.dialog, null);
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(dialogView).create();
+
+        TextView visitMoma = (TextView) dialogView.findViewById(R.id.visit_moma);
+        visitMoma.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://www.moma.org"));
+                startActivity(intent);
+            }
+        });
+
+        TextView notNow = (TextView) dialogView.findViewById(R.id.not_now);
+        notNow.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+}
