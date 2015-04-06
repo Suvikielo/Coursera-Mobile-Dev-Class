@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+-<RelativeLayout tools:context=".MainActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+-<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:padding="1dp" android:orientation="horizontal" android:layout_alignParentTop="true" android:layout_above="@+id/changeColor">
+
+
+-<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:padding="1dp" android:orientation="vertical" android:layout_weight="6">
+
+<Button android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="1" android:layout_marginBottom="1dp" android:id="@+id/button1Left"/>
+
+<Button android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="1" android:id="@+id/button2Left" android:layout_marginTop="1dp"/>
+
+</LinearLayout>
+
+
+-<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:padding="1dp" android:orientation="vertical" android:layout_weight="4">
+
+<Button android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="1" android:layout_marginBottom="1dp" android:id="@+id/button1Right"/>
+
+<Button android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="1" android:layout_marginBottom="1dp" android:id="@+id/button2Right" android:layout_marginTop="1dp" android:background="@android:color/white"/>
+
+<Button android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="1" android:id="@+id/button3Right" android:layout_marginTop="1dp"/>
+
+</LinearLayout>
+
+</LinearLayout>
+
+<SeekBar android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/changeColor" android:max="99" android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
